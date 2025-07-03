@@ -13,7 +13,6 @@ D:\Tai lieu hoc tap\NetCore\PTPMQL_01\DemoMVC\obj\Debug\net8.0\DemoMVC.csproj.Co
 D:\Tai lieu hoc tap\NetCore\PTPMQL_01\DemoMVC\obj\Debug\net8.0\DemoMVC.MvcApplicationPartsAssemblyInfo.cache
 D:\Tai lieu hoc tap\NetCore\PTPMQL_01\DemoMVC\obj\Debug\net8.0\DemoMVC.RazorAssemblyInfo.cache
 D:\Tai lieu hoc tap\NetCore\PTPMQL_01\DemoMVC\obj\Debug\net8.0\DemoMVC.RazorAssemblyInfo.cs
-D:\Tai lieu hoc tap\NetCore\PTPMQL_01\DemoMVC\obj\Debug\net8.0\DemoMVC.sourcelink.json
 D:\Tai lieu hoc tap\NetCore\PTPMQL_01\DemoMVC\obj\Debug\net8.0\staticwebassets.build.json
 D:\Tai lieu hoc tap\NetCore\PTPMQL_01\DemoMVC\obj\Debug\net8.0\staticwebassets.development.json
 D:\Tai lieu hoc tap\NetCore\PTPMQL_01\DemoMVC\obj\Debug\net8.0\staticwebassets\msbuild.DemoMVC.Microsoft.AspNetCore.StaticWebAssets.props

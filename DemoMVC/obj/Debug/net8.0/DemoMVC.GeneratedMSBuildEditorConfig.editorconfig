@@ -18,6 +18,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Tai lieu hoc tap\NetCore\PTPMQL_01\DemoMVC
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Tai lieu hoc tap/NetCore/PTPMQL_01/DemoMVC/Views/Employee/Goodbye.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcR29vZGJ5ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Tai lieu hoc tap/NetCore/PTPMQL_01/DemoMVC/Views/Employee/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Tai lieu hoc tap/NetCore/PTPMQL_01/DemoMVC/Views/HelloWorld/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGVsbG9Xb3JsZFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -28,6 +36,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Tai lieu hoc tap/NetCore/PTPMQL_01/DemoMVC/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Tai lieu hoc tap/NetCore/PTPMQL_01/DemoMVC/Views/Person/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Tai lieu hoc tap/NetCore/PTPMQL_01/DemoMVC/Views/Person/Welcome.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uXFdlbGNvbWUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Tai lieu hoc tap/NetCore/PTPMQL_01/DemoMVC/Views/Shared/Error.cshtml]
