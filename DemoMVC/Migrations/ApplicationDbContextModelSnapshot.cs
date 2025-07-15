@@ -14,7 +14,7 @@ namespace DemoMVC.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.7");
 
             modelBuilder.Entity("DemoMVC.Models.DaiLy", b =>
                 {
@@ -84,6 +84,24 @@ namespace DemoMVC.Migrations
                     b.HasDiscriminator().HasValue("Person");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("DemoMVC.Models.Student", b =>
+                {
+                    b.Property<string>("StudentID")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("StudentID");
+
+                    b.ToTable("Student");
                 });
 
             modelBuilder.Entity("DemoMVC.Models.Employee", b =>
