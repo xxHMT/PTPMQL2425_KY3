@@ -12,7 +12,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="MaHTPP" class="control-label"></label>
-                <input type="text" name="MaHTPP" value="@ViewBag.NewMaHTPP" readonly="readonly" class="form-control" />
+                <input asp-for="MaHTPP" class="form-control" readonly />
                 <span asp-validation-for="MaHTPP" class="text-danger"></span>
             </div>
             <div class="form-group">

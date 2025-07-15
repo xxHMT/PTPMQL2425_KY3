@@ -4,7 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create New DaiLy</h1>
+<h1>Create</h1>
+
+<h4>DaiLy</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -12,32 +14,32 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="MaDaiLy" class="control-label"></label>
-                <input asp-for="MaDaiLy" class="form-control">
+                <input asp-for="MaDaiLy" class="form-control" />
                 <span asp-validation-for="MaDaiLy" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TenDaiLy" class="control-label"></label>
-                <input asp-for="TenDaiLy" class="form-control">
+                <input asp-for="TenDaiLy" class="form-control" />
                 <span asp-validation-for="TenDaiLy" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DiaChi" class="control-label"></label>
-                <input asp-for="DiaChi" class="form-control">
+                <input asp-for="DiaChi" class="form-control" />
                 <span asp-validation-for="DiaChi" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NguoiDaiDien" class="control-label"></label>
-                <input asp-for="NguoiDaiDien" class="form-control">
+                <input asp-for="NguoiDaiDien" class="form-control" />
                 <span asp-validation-for="NguoiDaiDien" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DienThoai" class="control-label"></label>
-                <input asp-for="DienThoai" class="form-control">
+                <input asp-for="DienThoai" class="form-control" />
                 <span asp-validation-for="DienThoai" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MaHTPP" class="control-label"></label>
-                <input asp-for="MaHTPP" class="form-control">
+                <input asp-for="MaHTPP" class="form-control" />
                 <span asp-validation-for="MaHTPP" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -48,9 +50,9 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back To List</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts{
+@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

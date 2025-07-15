@@ -1,5 +1,5 @@
-using DemoMvc.Data;
-using DemoMVC.Models;
+using DemoMVC.Data;
+using DemoMVC.Models.Process;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

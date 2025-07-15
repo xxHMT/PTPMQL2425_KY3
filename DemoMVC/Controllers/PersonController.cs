@@ -1,4 +1,4 @@
-using DemoMvc.Data;
+using DemoMVC.Data;
 using DemoMVC.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;

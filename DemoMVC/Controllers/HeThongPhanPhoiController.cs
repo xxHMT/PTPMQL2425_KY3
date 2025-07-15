@@ -1,5 +1,7 @@
-using DemoMvc.Data;
+
+using DemoMVC.Data;
 using DemoMVC.Models;
+using DemoMVC.Models.Process;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,11 +10,9 @@ namespace DemoMvc.Controllers
     public class HeThongPhanPhoiController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly AutoGenerateCode _autoGenerateCode;
-        public HeThongPhanPhoiController(ApplicationDbContext context, AutoGenerateCode autoGenerateCode)
+        public HeThongPhanPhoiController(ApplicationDbContext context)
         {
             _context = context;
-            _autoGenerateCode = autoGenerateCode;
         }
         public async Task<IActionResult> Index()
         {
@@ -22,17 +22,21 @@ namespace DemoMvc.Controllers
 
         public IActionResult Create()
         {
-            //lay ma cuoi cung trong database, sap xep giam dan
-            var lastHTPP = _context.HeThongPhanPhoi
+            //lay ra ban ghi moi nhat cua HTPP
+            var htpp = _context.HeThongPhanPhoi
             .OrderByDescending(m => m.MaHTPP)
             .FirstOrDefault();
             //lay maHTPP cuoi cung, neu null thi lay ma mac dinh
-            var lastMaHTPP = lastHTPP?.MaHTPP ?? "HTPP000";
+            var maHTPP = htpp == null ? "HTPP000" : htpp.MaHTPP;
             //Goi phuong thuc autogenerate code de sinh ma
-            var newMaHTPP = _autoGenerateCode.GenerateCode(lastMaHTPP);
+            var AutoGenerateCode = new AutoGenerateCode();
             //Truyen ma moi den view de hien thi
-            ViewBag.NewMaHTPP =  newMaHTPP; 
-            return View();
+            var newMaHTPP = AutoGenerateCode.GenerateID(maHTPP);
+            var newHTPP = new HeThongPhanPhoi
+            {
+                MaHTPP = newMaHTPP
+            };
+            return View(newHTPP);   
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

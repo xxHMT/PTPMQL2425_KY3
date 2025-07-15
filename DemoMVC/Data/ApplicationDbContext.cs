@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DemoMVC.Models;
 
-namespace DemoMvc.Data
+namespace DemoMVC.Data
 {
     public class ApplicationDbContext : DbContext
     {
