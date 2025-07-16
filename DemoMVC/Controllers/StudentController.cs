@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DemoMVC.Data;
-using DemoMVC.Models;
+using DemoMVC.Models.Entities;
 using DemoMVC.Models.Process;
+using OfficeOpenXml;
+using X.PagedList.Extensions;
 
 namespace DemoMVC.Controllers
 {
@@ -17,9 +19,10 @@ namespace DemoMVC.Controllers
         }
 
         // GET: Student
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
-            return View(await _context.Student.ToListAsync());
+            var model = _context.Student.ToList().ToPagedList(page ?? 1, 5);
+            return View(model);
         }
 
         // GET: Student/Details/5
@@ -60,7 +63,7 @@ namespace DemoMVC.Controllers
                 {
                     //rename file when upload to sever
                     var fileName = DateTime.Now.ToShortTimeString() + fileExtension;
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory() + "/Upload/Excels", fileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory() + "/Uploads/Excels", fileName);
                     var fileLocation = new FileInfo(filePath).ToString();
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
@@ -87,6 +90,28 @@ namespace DemoMVC.Controllers
                 }
             }
             return View();
+        }
+
+        public ActionResult Download()
+        {
+            //name the file when downloading
+            var fileName = "YourFileName" + ".xlsx";
+            using (ExcelPackage excelPackage = new ExcelPackage())
+            {
+                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Sheet 1");
+                //add some text to cell A1
+                worksheet.Cells["A1"].Value = "StudentID";
+                worksheet.Cells["B1"].Value = "FullName";
+                worksheet.Cells["C1"].Value = "Address";
+
+                //get all student
+                var studentList = _context.Student.ToList();
+                //fill data to worksheet
+                worksheet.Cells["A2"].LoadFromCollection(studentList);
+                var stream = new MemoryStream(excelPackage.GetAsByteArray());
+                //download file
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
         }
 
         // GET: Student/Create

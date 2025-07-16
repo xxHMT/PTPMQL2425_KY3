@@ -1,88 +1,122 @@
-
-using DemoMVC.Data;
-using DemoMVC.Models;
-using DemoMVC.Models.Process;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using DemoMVC.Data;
+using DemoMVC.Models.Entities;
+using DemoMVC.Models.Process;
 
-namespace DemoMvc.Controllers
+namespace DemoMVC.Controllers
 {
     public class HeThongPhanPhoiController : Controller
     {
         private readonly ApplicationDbContext _context;
+
         public HeThongPhanPhoiController(ApplicationDbContext context)
         {
             _context = context;
         }
+
+        // GET: HeThongPhanPhoi
         public async Task<IActionResult> Index()
         {
-            var model = await _context.HeThongPhanPhoi.ToListAsync();
-            return View(model);
+            return View(await _context.HeThongPhanPhoi.ToListAsync());
         }
 
+        // GET: HeThongPhanPhoi/Details/5
+        public async Task<IActionResult> Details(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var heThongPhanPhoi = await _context.HeThongPhanPhoi
+                .FirstOrDefaultAsync(m => m.MaHTPP == id);
+            if (heThongPhanPhoi == null)
+            {
+                return NotFound();
+            }
+
+            return View(heThongPhanPhoi);
+        }
+
+        // GET: HeThongPhanPhoi/Create
         public IActionResult Create()
         {
             //lay ra ban ghi moi nhat cua HTPP
             var htpp = _context.HeThongPhanPhoi
-            .OrderByDescending(m => m.MaHTPP)
+            .OrderByDescending(h => h.MaHTPP)
             .FirstOrDefault();
-            //lay maHTPP cuoi cung, neu null thi lay ma mac dinh
-            var maHTPP = htpp == null ? "HTPP000" : htpp.MaHTPP;
-            //Goi phuong thuc autogenerate code de sinh ma
-            var AutoGenerateCode = new AutoGenerateCode();
-            //Truyen ma moi den view de hien thi
-            var newMaHTPP = AutoGenerateCode.GenerateID(maHTPP);
+            //neu htpp = nul thi gan ma htpp = htpp0
+            var maHTPP = htpp == null ? "HTPP0" : htpp.MaHTPP;
+            //goi thoi phuong thuc sinh id tu dong
+            var autoGenerateID = new AutoGenerateCode();
+            var newmaHTPP = autoGenerateID.GenerateID(maHTPP);
             var newHTPP = new HeThongPhanPhoi
             {
-                MaHTPP = newMaHTPP
+                MaHTPP = newmaHTPP
             };
-            return View(newHTPP);   
+            return View(newHTPP);
         }
+
+        // POST: HeThongPhanPhoi/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> Create([Bind("MaHTPP, TenHTPP")] HeThongPhanPhoi htpp)
+        public async Task<IActionResult> Create([Bind("MaHTPP,TenHTPP")] HeThongPhanPhoi heThongPhanPhoi)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(htpp);
+                _context.Add(heThongPhanPhoi);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(htpp);
+            return View(heThongPhanPhoi);
         }
+
+        // GET: HeThongPhanPhoi/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.HeThongPhanPhoi == null)
+            if (id == null)
             {
                 return NotFound();
             }
-            var htpp = await _context.HeThongPhanPhoi.FindAsync(id);
-            if (htpp == null)
+
+            var heThongPhanPhoi = await _context.HeThongPhanPhoi.FindAsync(id);
+            if (heThongPhanPhoi == null)
             {
                 return NotFound();
             }
-            return View(htpp);
+            return View(heThongPhanPhoi);
         }
+
+        // POST: HeThongPhanPhoi/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> Edit(string id, [Bind("MaHTPP, TenHTPP")] HeThongPhanPhoi htpp)
+        public async Task<IActionResult> Edit(string id, [Bind("MaHTPP,TenHTPP")] HeThongPhanPhoi heThongPhanPhoi)
         {
-            if (id != htpp.MaHTPP)
+            if (id != heThongPhanPhoi.MaHTPP)
             {
                 return NotFound();
             }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(htpp);
+                    _context.Update(heThongPhanPhoi);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!HTPPExits(htpp.MaHTPP))
+                    if (!HeThongPhanPhoiExists(heThongPhanPhoi.MaHTPP))
                     {
                         return NotFound();
                     }
@@ -93,49 +127,45 @@ namespace DemoMvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(htpp);
+            return View(heThongPhanPhoi);
         }
+
+        // GET: HeThongPhanPhoi/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.HeThongPhanPhoi == null)
+            if (id == null)
             {
                 return NotFound();
             }
-            var htpp = await _context.HeThongPhanPhoi
-            .FirstOrDefaultAsync(m => m.MaHTPP == id);
 
-            if (htpp == null)
+            var heThongPhanPhoi = await _context.HeThongPhanPhoi
+                .FirstOrDefaultAsync(m => m.MaHTPP == id);
+            if (heThongPhanPhoi == null)
             {
                 return NotFound();
             }
-            return View(htpp);
+
+            return View(heThongPhanPhoi);
         }
-        [HttpPost]
+
+        // POST: HeThongPhanPhoi/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.HeThongPhanPhoi == null)
+            var heThongPhanPhoi = await _context.HeThongPhanPhoi.FindAsync(id);
+            if (heThongPhanPhoi != null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Person' is null.");
+                _context.HeThongPhanPhoi.Remove(heThongPhanPhoi);
             }
-            var htpp = await _context.HeThongPhanPhoi.FindAsync(id);
-            if (htpp != null)
-            {
-                _context.Remove(htpp);
-            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool HTPPExits(string id)
+        private bool HeThongPhanPhoiExists(string id)
         {
-            return (_context.HeThongPhanPhoi?.Any(e => e.MaHTPP == id)).GetValueOrDefault();
+            return _context.HeThongPhanPhoi.Any(e => e.MaHTPP == id);
         }
-        // public IActionResult Index(string MaHTPP, string TenHTPP)
-        // {
-        //     string strOutput = "Xin chao " + MaHTPP + " - " + TenHTPP;
-        //     ViewBag.infoHTPP = strOutput;
-        //     return View();
-        // }
     }
 }

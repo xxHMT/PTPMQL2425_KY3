@@ -16,32 +16,38 @@ namespace DemoMVC.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.7");
 
-            modelBuilder.Entity("DemoMVC.Models.DaiLy", b =>
+            modelBuilder.Entity("DemoMVC.Models.Entities.DaiLy", b =>
                 {
                     b.Property<string>("MaDaiLy")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DiaChi")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DienThoai")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MaHTPP")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NguoiDaiDien")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TenDaiLy")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("MaDaiLy");
 
+                    b.HasIndex("MaHTPP");
+
                     b.ToTable("DaiLy");
                 });
 
-            modelBuilder.Entity("DemoMVC.Models.HeThongPhanPhoi", b =>
+            modelBuilder.Entity("DemoMVC.Models.Entities.HeThongPhanPhoi", b =>
                 {
                     b.Property<string>("MaHTPP")
                         .HasColumnType("TEXT");
@@ -52,10 +58,10 @@ namespace DemoMVC.Migrations
 
                     b.HasKey("MaHTPP");
 
-                    b.ToTable("HTPP");
+                    b.ToTable("HeThongPhanPhoi");
                 });
 
-            modelBuilder.Entity("DemoMVC.Models.Person", b =>
+            modelBuilder.Entity("DemoMVC.Models.Entities.Person", b =>
                 {
                     b.Property<string>("PersonID")
                         .HasColumnType("TEXT");
@@ -86,7 +92,7 @@ namespace DemoMVC.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("DemoMVC.Models.Student", b =>
+            modelBuilder.Entity("DemoMVC.Models.Entities.Student", b =>
                 {
                     b.Property<string>("StudentID")
                         .HasColumnType("TEXT");
@@ -104,9 +110,9 @@ namespace DemoMVC.Migrations
                     b.ToTable("Student");
                 });
 
-            modelBuilder.Entity("DemoMVC.Models.Employee", b =>
+            modelBuilder.Entity("DemoMVC.Models.Entities.Employee", b =>
                 {
-                    b.HasBaseType("DemoMVC.Models.Person");
+                    b.HasBaseType("DemoMVC.Models.Entities.Person");
 
                     b.Property<int>("Age")
                         .HasColumnType("INTEGER");
@@ -117,6 +123,20 @@ namespace DemoMVC.Migrations
                     b.ToTable("Person");
 
                     b.HasDiscriminator().HasValue("Employee");
+                });
+
+            modelBuilder.Entity("DemoMVC.Models.Entities.DaiLy", b =>
+                {
+                    b.HasOne("DemoMVC.Models.Entities.HeThongPhanPhoi", "HTPP")
+                        .WithMany("DaiLy")
+                        .HasForeignKey("MaHTPP");
+
+                    b.Navigation("HTPP");
+                });
+
+            modelBuilder.Entity("DemoMVC.Models.Entities.HeThongPhanPhoi", b =>
+                {
+                    b.Navigation("DaiLy");
                 });
 #pragma warning restore 612, 618
         }
