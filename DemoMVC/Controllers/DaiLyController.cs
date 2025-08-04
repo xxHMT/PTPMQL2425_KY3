@@ -4,6 +4,7 @@ using DemoMVC.Data;
 using DemoMVC.Models.Entities;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using DemoMVC.Models.ViewModels;
 
 namespace DemoMVC.Controllers
 {
@@ -19,7 +20,21 @@ namespace DemoMVC.Controllers
         // GET: DaiLy
         public async Task<IActionResult> Index()
         {
+            var applicationDbContext = _context.DaiLy.Include(d => d.HTPP);
             return View(await _context.DaiLy.ToListAsync());
+        }
+        public async Task<IActionResult> Index2()
+        {
+            var daiLyList = await _context.DaiLy
+            .Include(d => d.HTPP)
+            .Select(d => new DaiLyVM
+            {
+                MaDaiLy = d.MaDaiLy,
+                TenDaiLy = d.TenDaiLy,
+                TenHTPP = d.HTPP != null ? d.HTPP.TenHTPP : "Không có hệ thống phân phối"
+            })
+            .ToListAsync();
+            return View(daiLyList);
         }
 
         // GET: DaiLy/Details/5
@@ -43,6 +58,7 @@ namespace DemoMVC.Controllers
         // GET: DaiLy/Create
         public IActionResult Create()
         {
+            ViewData["MaHTPP"] = new SelectList(_context.HeThongPhanPhoi, "MaHTPP", "TenHTPP");
             return View();
         }
 
@@ -59,6 +75,7 @@ namespace DemoMVC.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MaHTPP"] = new SelectList(_context.HeThongPhanPhoi, "MaHTPP", "MaHTPP", daiLy.MaHTPP);
             return View(daiLy);
         }
 
@@ -75,6 +92,7 @@ namespace DemoMVC.Controllers
             {
                 return NotFound();
             }
+            ViewData["MaHTPP"] = new SelectList(_context.HeThongPhanPhoi, "MaHTPP", "MaHTPP", daiLy.MaHTPP);
             return View(daiLy);
         }
 
@@ -110,6 +128,7 @@ namespace DemoMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MaHTPP"] = new SelectList(_context.HeThongPhanPhoi, "MaHTPP", "MaHTPP", daiLy.MaHTPP);
             return View(daiLy);
         }
 
